@@ -1,0 +1,222 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block title %}{{ COMPANY_NAME }} | Complete Interior & Exterior Solutions{% endblock %}
+
+{% block content %}
+
+<!-- ===== Hero Section ===== -->
+<section class="hero-section d-flex align-items-center">
+    <div class="hero-overlay"></div>
+    <div class="container position-relative py-5">
+        <div class="row align-items-center py-5">
+            <div class="col-lg-7 text-white">
+                <span class="badge bg-primary rounded-pill px-3 py-2 mb-3 fs-6">
+                    <i class="bi bi-award-fill me-1"></i> 20+ Years of Trusted Experience
+                </span>
+                <h1 class="display-4 fw-bold mb-3">Complete Interior & Exterior Solutions</h1>
+                <p class="lead mb-4 text-light-emphasis">
+                    From carpentry and painting to lighting, tiles, and full turnkey execution —
+                    we handle every part of your project under one roof, on time and on budget.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'core:contact' %}" class="btn btn-primary btn-lg rounded-pill px-4 fw-semibold">
+                        Get a Free Quote <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                    <a href="{% url 'core:portfolio' %}" class="btn btn-outline-light btn-lg rounded-pill px-4 fw-semibold">
+                        View Our Work
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Lead Form -->
+            <div class="col-lg-5 mt-5 mt-lg-0">
+                <div class="card border-0 shadow-lg quick-lead-card">
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-1">Request a Free Site Visit</h4>
+                        <p class="text-muted small mb-3">We'll call you back within 24 hours.</p>
+                        <form method="post" action="{% url 'core:home' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.name }}
+                                {% if form.name.errors %}<div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>{% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.phone }}
+                                {% if form.phone.errors %}<div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>{% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.location }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.service_selected }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.budget_range }}
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 fw-semibold py-2">
+                                Send My Request <i class="bi bi-send-fill ms-1"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Counter / Stats Section ===== -->
+<section class="py-5 bg-primary">
+    <div class="container">
+        <div class="row text-center text-white g-4">
+            {% for stat in stats %}
+            <div class="col-6 col-md-3">
+                <i class="bi {{ stat.icon_class|default:'bi-star-fill' }} fs-1 mb-2 d-block"></i>
+                <h2 class="fw-bold display-6 counter" data-target="{{ stat.value }}">{{ stat.value }}</h2>
+                <p class="mb-0 text-light-emphasis">{{ stat.label }}</p>
+            </div>
+            {% empty %}
+            <div class="col-6 col-md-3">
+                <i class="bi bi-award-fill fs-1 mb-2 d-block"></i>
+                <h2 class="fw-bold display-6">20+</h2>
+                <p class="mb-0">Years Experience</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <i class="bi bi-building-fill-check fs-1 mb-2 d-block"></i>
+                <h2 class="fw-bold display-6">100+</h2>
+                <p class="mb-0">Projects Completed</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <i class="bi bi-emoji-smile-fill fs-1 mb-2 d-block"></i>
+                <h2 class="fw-bold display-6">100+</h2>
+                <p class="mb-0">Happy Clients</p>
+            </div>
+            <div class="col-6 col-md-3">
+                <i class="bi bi-cash-coin fs-1 mb-2 d-block"></i>
+                <h2 class="fw-bold display-6">₹30L+</h2>
+                <p class="mb-0">Largest Deal Value</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ===== Service Highlights ===== -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="text-primary fw-semibold text-uppercase">What We Do</span>
+            <h2 class="fw-bold">Our Core Services</h2>
+            <p class="text-muted col-lg-6 mx-auto">
+                End-to-end interior and exterior services delivered by one accountable team —
+                no juggling multiple contractors.
+            </p>
+        </div>
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    {% if service.image %}
+                    <img src="{{ service.image.url }}" class="card-img-top service-img" alt="{{ service.title }}">
+                    {% endif %}
+                    <div class="card-body p-4">
+                        <div class="service-icon mb-3">
+                            <i class="bi {{ service.icon_class|default:'bi-tools' }}"></i>
+                        </div>
+                        <h5 class="fw-bold">{{ service.title }}</h5>
+                        <p class="text-muted">{{ service.short_description }}</p>
+                        <a href="{{ service.get_absolute_url }}" class="fw-semibold text-primary text-decoration-none">
+                            Learn More <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted">
+                No services added yet. Add some from the Django admin!
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'core:services' %}" class="btn btn-outline-primary rounded-pill px-4">View All Services</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== Featured Portfolio ===== -->
+{% if featured_portfolio %}
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="text-primary fw-semibold text-uppercase">Our Work</span>
+            <h2 class="fw-bold">Recently Completed Projects</h2>
+        </div>
+        <div class="row g-4">
+            {% for item in featured_portfolio %}
+            <div class="col-md-6 col-lg-4">
+                <div class="portfolio-thumb">
+                    <img src="{{ item.main_image.url }}" alt="{{ item.title }}" class="img-fluid rounded shadow-sm">
+                    <div class="portfolio-overlay">
+                        <h6 class="text-white fw-bold mb-0">{{ item.title }}</h6>
+                        <span class="badge bg-primary">{{ item.get_category_display }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'core:portfolio' %}" class="btn btn-primary rounded-pill px-4">View Full Portfolio</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ===== Testimonials ===== -->
+{% if testimonials %}
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="text-primary fw-semibold text-uppercase">Testimonials</span>
+            <h2 class="fw-bold">What Our Clients Say</h2>
+        </div>
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% for t in testimonials %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-7 text-center">
+                            <i class="bi bi-quote fs-1 text-primary"></i>
+                            <p class="lead fst-italic">{{ t.review }}</p>
+                            <div class="mb-2">
+                                {% for _ in t.stars_range %}<i class="bi bi-star-fill text-warning"></i>{% endfor %}{% for _ in t.empty_stars_range %}<i class="bi bi-star text-warning"></i>{% endfor %}
+                            </div>
+                            <h6 class="fw-bold mb-0">{{ t.client_name }}</h6>
+                            <small class="text-muted">{{ t.project_type }}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% if testimonials|length > 1 %}
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-primary rounded-circle p-3"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-primary rounded-circle p-3"></span>
+            </button>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ===== CTA Banner ===== -->
+<section class="cta-banner py-5">
+    <div class="container text-center text-white">
+        <h2 class="fw-bold mb-3">Ready to Transform Your Space?</h2>
+        <p class="lead mb-4">Talk to our design team today — free consultation, no obligation.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-light btn-lg rounded-pill px-5 fw-semibold">Get Your Free Quote</a>
+    </div>
+</section>
+
+{% endblock %}

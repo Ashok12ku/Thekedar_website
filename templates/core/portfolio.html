@@ -1,0 +1,74 @@
+{% extends "core/base.html" %}
+{% block title %}Our Portfolio | {{ COMPANY_NAME }}{% endblock %}
+
+{% block content %}
+
+<section class="page-header py-5">
+    <div class="container text-center text-white">
+        <h1 class="fw-bold">Our Portfolio</h1>
+        <p class="lead mb-0">100+ completed projects across interiors, exteriors & more.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+
+        <!-- Category Filter -->
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5">
+            <a href="{% url 'core:portfolio' %}"
+               class="btn btn-sm rounded-pill px-3 {% if selected_category == 'all' %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                All
+            </a>
+            {% for value, label in categories %}
+            <a href="?category={{ value }}"
+               class="btn btn-sm rounded-pill px-3 {% if selected_category == value %}btn-primary{% else %}btn-outline-primary{% endif %}">
+                {{ label }}
+            </a>
+            {% endfor %}
+        </div>
+
+        <div class="row g-4">
+            {% for item in page_obj %}
+            <div class="col-md-6 col-lg-4">
+                <div class="portfolio-thumb">
+                    <img src="{{ item.main_image.url }}" alt="{{ item.title }}" class="img-fluid rounded shadow-sm">
+                    <div class="portfolio-overlay">
+                        <h6 class="text-white fw-bold mb-0">{{ item.title }}</h6>
+                        <span class="badge bg-primary mb-1">{{ item.get_category_display }}</span>
+                        {% if item.location %}<div class="text-white small"><i class="bi bi-geo-alt-fill"></i> {{ item.location }}</div>{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted py-5">
+                <p>No portfolio items in this category yet. Add some from the Django admin under "Portfolio Items".</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?category={{ selected_category }}&page={{ page_obj.previous_page_number }}">Previous</a>
+                </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+                    <a class="page-link" href="?category={{ selected_category }}&page={{ num }}">{{ num }}</a>
+                </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?category={{ selected_category }}&page={{ page_obj.next_page_number }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

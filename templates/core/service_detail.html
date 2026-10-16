@@ -1,0 +1,47 @@
+{% extends "core/base.html" %}
+{% block title %}{{ service.title }} | {{ COMPANY_NAME }}{% endblock %}
+
+{% block content %}
+
+<section class="page-header py-5">
+    <div class="container text-center text-white">
+        <h1 class="fw-bold">{{ service.title }}</h1>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8">
+                {% if service.image %}
+                <img src="{{ service.image.url }}" class="img-fluid rounded shadow-sm mb-4" alt="{{ service.title }}">
+                {% endif %}
+                <div class="service-icon mb-3">
+                    <i class="bi {{ service.icon_class|default:'bi-tools' }}"></i>
+                </div>
+                <h3 class="fw-bold">{{ service.title }}</h3>
+                <p class="text-muted" style="white-space: pre-line;">{{ service.description }}</p>
+
+                <a href="{% url 'core:contact' %}?service={{ service.slug }}" class="btn btn-primary rounded-pill px-4 mt-3">
+                    Get a Quote for This Service
+                </a>
+            </div>
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm p-3">
+                    <h6 class="fw-bold mb-3">Other Services</h6>
+                    <ul class="list-unstyled mb-0">
+                        {% for s in other_services %}
+                        <li class="mb-2">
+                            <a href="{{ s.get_absolute_url }}" class="text-decoration-none text-dark">
+                                <i class="bi {{ s.icon_class|default:'bi-tools' }} text-primary me-2"></i>{{ s.title }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

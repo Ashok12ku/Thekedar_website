@@ -1,0 +1,51 @@
+{% extends "core/base.html" %}
+{% block title %}Our Services | {{ COMPANY_NAME }}{% endblock %}
+
+{% block content %}
+
+<section class="page-header py-5">
+    <div class="container text-center text-white">
+        <h1 class="fw-bold">Our Services</h1>
+        <p class="lead mb-0">Everything your project needs, under one roof.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    {% if service.image %}
+                    <img src="{{ service.image.url }}" class="card-img-top service-img" alt="{{ service.title }}">
+                    {% endif %}
+                    <div class="card-body p-4">
+                        <div class="service-icon mb-3">
+                            <i class="bi {{ service.icon_class|default:'bi-tools' }}"></i>
+                        </div>
+                        <h5 class="fw-bold">{{ service.title }}</h5>
+                        <p class="text-muted">{{ service.short_description }}</p>
+                        <a href="{{ service.get_absolute_url }}" class="fw-semibold text-primary text-decoration-none">
+                            View Details <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center text-muted py-5">
+                <p>No services added yet. Go to <code>/admin/</code> and add some under "Services".</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="cta-banner py-5">
+    <div class="container text-center text-white">
+        <h2 class="fw-bold mb-3">Not Sure Which Service You Need?</h2>
+        <p class="lead mb-4">Tell us about your project — we'll recommend the right approach and a free estimate.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-light btn-lg rounded-pill px-5 fw-semibold">Get Free Consultation</a>
+    </div>
+</section>
+
+{% endblock %}

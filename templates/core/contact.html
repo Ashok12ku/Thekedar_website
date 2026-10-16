@@ -1,0 +1,80 @@
+{% extends "core/base.html" %}
+{% block title %}Contact & Get a Free Quote | {{ COMPANY_NAME }}{% endblock %}
+
+{% block content %}
+
+<section class="page-header py-5">
+    <div class="container text-center text-white">
+        <h1 class="fw-bold">Get a Free Quote</h1>
+        <p class="lead mb-0">Tell us about your project — we'll get back to you within 24 hours.</p>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-7">
+                <div class="card border-0 shadow-sm p-4">
+                    <h4 class="fw-bold mb-4">Request a Quote</h4>
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Name *</label>
+                                {{ form.name }}
+                                {% if form.name.errors %}<div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Phone *</label>
+                                {{ form.phone }}
+                                {% if form.phone.errors %}<div class="text-danger small mt-1">{{ form.phone.errors.0 }}</div>{% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Email</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Location *</label>
+                                {{ form.location }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Required Service *</label>
+                                {{ form.service_selected }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Budget Range</label>
+                                {{ form.budget_range }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Message</label>
+                                {{ form.message }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill px-5 mt-4 fw-semibold">
+                            Submit Request <i class="bi bi-send-fill ms-1"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="card border-0 shadow-sm p-4 mb-4">
+                    <h5 class="fw-bold mb-3">Contact Details</h5>
+                    <p class="mb-2"><i class="bi bi-geo-alt-fill text-primary me-2"></i>{{ COMPANY_ADDRESS }}</p>
+                    <p class="mb-2"><i class="bi bi-telephone-fill text-primary me-2"></i>
+                        <a href="tel:{{ COMPANY_PHONE }}" class="text-decoration-none text-dark">{{ COMPANY_PHONE }}</a>
+                    </p>
+                    <p class="mb-0"><i class="bi bi-envelope-fill text-primary me-2"></i>
+                        <a href="mailto:{{ COMPANY_EMAIL }}" class="text-decoration-none text-dark">{{ COMPANY_EMAIL }}</a>
+                    </p>
+                </div>
+                <a href="https://wa.me/{{ COMPANY_WHATSAPP }}" target="_blank"
+                   class="btn btn-success w-100 py-3 fw-semibold rounded-3">
+                    <i class="bi bi-whatsapp me-2"></i>Chat With Us on WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

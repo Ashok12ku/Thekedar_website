@@ -1,0 +1,172 @@
+:root {
+    --primary: #d9631e;      /* warm terracotta/construction orange */
+    --primary-dark: #b34f16;
+    --dark: #1c1f26;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+.text-primary { color: var(--primary) !important; }
+.bg-primary { background-color: var(--primary) !important; }
+
+/* ===== Top bar & Navbar ===== */
+.top-bar {
+    background-color: var(--dark);
+    color: #cfd3da;
+}
+.navbar { z-index: 1030; }
+.navbar-nav .nav-link {
+    font-weight: 500;
+    color: #333;
+}
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+    color: var(--primary);
+}
+
+/* ===== Hero ===== */
+.hero-section {
+    position: relative;
+    min-height: 88vh;
+    background: linear-gradient(rgba(20,22,28,0.55), rgba(20,22,28,0.75)),
+                url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    color: #fff;
+}
+.hero-overlay { position: absolute; inset: 0; }
+
+.quick-lead-card {
+    border-radius: 16px;
+}
+.quick-lead-card .form-control,
+.quick-lead-card .form-select {
+    padding: 0.65rem 0.9rem;
+    border-radius: 8px;
+}
+
+/* ===== Service cards ===== */
+.service-card {
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.12) !important;
+}
+.service-img {
+    height: 190px;
+    object-fit: cover;
+}
+.service-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: rgba(217, 99, 30, 0.12);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* ===== Portfolio ===== */
+.portfolio-thumb {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+.portfolio-thumb img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+.portfolio-thumb:hover img { transform: scale(1.08); }
+.portfolio-overlay {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+}
+
+/* ===== Process steps (About page) ===== */
+.process-number {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin: 0 auto;
+}
+.stat-box {
+    background: #fff;
+    border: 1px solid #eee;
+}
+
+/* ===== Page header (inner pages) ===== */
+.page-header {
+    background: linear-gradient(rgba(20,22,28,0.75), rgba(20,22,28,0.75)),
+                url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    min-height: 260px;
+    display: flex;
+    align-items: center;
+}
+
+/* ===== CTA Banner ===== */
+.cta-banner {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+}
+
+/* ===== Footer ===== */
+.footer-link {
+    color: #adb5bd;
+    text-decoration: none;
+}
+.footer-link:hover { color: #fff; }
+
+/* ===== WhatsApp floating button ===== */
+.whatsapp-float {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #25D366;
+    color: #fff;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 1050;
+    transition: transform 0.2s ease;
+}
+.whatsapp-float:hover { transform: scale(1.08); color: #fff; }
+
+@media (max-width: 576px) {
+    .hero-section { min-height: 100vh; }
+}
